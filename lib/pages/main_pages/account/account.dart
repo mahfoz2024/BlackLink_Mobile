@@ -1,7 +1,9 @@
+import 'package:blacklink_mobile/pages/login/login.dart';
 import 'package:blacklink_mobile/pages/main_pages/account/account_controller.dart';
 import 'package:blacklink_mobile/shared_kernal/base_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../shared_kernal/enum/error_enum.dart';
@@ -10,7 +12,7 @@ import 'profile_settings/profile_settings.dart';
 
 class Account extends StatelessWidget {
   Account({super.key});
-
+  final box = GetStorage();
   final controller = Get.put(AccountController());
 
   @override
@@ -128,6 +130,42 @@ class Account extends StatelessWidget {
                                 ),
                                 Text(
                                   'Edit',
+                                  style: TextStyle(
+                                      fontSize: 15.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                              ],
+
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 5.h,),
+                      InkWell(
+                        onTap: (){
+                          box.remove('token');
+                          Get.offAll(LogIn());
+                        },
+                        child: Container(
+                          width: 30.w,
+                          height: 5.h,
+                          decoration: BoxDecoration(
+                              color: Colors.deepPurple,
+                              borderRadius: BorderRadius.circular(1.h)),
+                          child: Padding(
+                            padding:  EdgeInsets.all(1.h),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Icon(
+                                  Icons.edit,
+                                  size: 15.sp,
+                                  color: Colors.white,
+                                ),
+                                Text(
+                                  'LogOut',
                                   style: TextStyle(
                                       fontSize: 15.sp,
                                       fontWeight: FontWeight.bold,

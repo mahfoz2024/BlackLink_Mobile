@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import '../../../shared_kernal/enum/error_enum.dart';
 import '../../../widgets/handling_error_widget.dart';
+import '../../../widgets/spinner_loading.dart';
 import '../../../widgets/user_card.dart';
 import '../../User/user_profile/user_profile.dart';
 import 'explore_users_controller.dart';
@@ -45,7 +46,7 @@ class ExploreUsers extends StatelessWidget {
                 Obx(() {
                   if (controller.loading.isTrue) {
                     return const Center(
-                      child: CircularProgressIndicator(),
+                      child:  SpinnerLoading(),
                     );
                   } else {
                     if (controller.errorType.value != ResponseStatus.other) {
@@ -64,10 +65,7 @@ class ExploreUsers extends StatelessWidget {
                                 child: UserCard(user: controller.users[index]),
                               ),
                               onTap: () {
-                                Navigator.of(context)
-                                    .push(MaterialPageRoute(builder: (context) {
-                                  return UserProfile();
-                                }));
+                                Get.to(UserProfile(id: controller.users[index].id!));
                               },
                             );
                           });

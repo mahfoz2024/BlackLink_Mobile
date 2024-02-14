@@ -1,4 +1,5 @@
 import 'package:blacklink_mobile/pages/login/login_controller.dart';
+import 'package:blacklink_mobile/pages/signUp/sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:progress_state_button/iconed_button.dart';
@@ -19,6 +20,45 @@ class LogIn extends StatelessWidget {
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: const Color(0xff1a1a35),
+        actions: [
+          Padding(
+            padding:  EdgeInsets.only(right: 4.w),
+            child: InkWell(
+              onTap: (){
+                Get.to( SignUp());
+              },
+              child: Container(
+                width: 30.w,
+                height: 5.h,
+                decoration: BoxDecoration(
+                    color: Colors.deepPurple,
+                    borderRadius: BorderRadius.circular(1.h)),
+                child: Padding(
+                  padding:  EdgeInsets.all(1.h),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Icon(
+                        Icons.assignment_ind_outlined,
+                        size: 15.sp,
+                        color: Colors.white,
+                      ),
+                      Text(
+                        'SignUp',
+                        style: TextStyle(
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                    ],
+
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
       ),
       backgroundColor: const Color(0xff1a1a35),
       body: SingleChildScrollView(

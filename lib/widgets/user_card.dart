@@ -21,34 +21,6 @@ class UserCard extends StatelessWidget {
           color: const Color(0xff31314d)),
       child: Column(
         children: [
-          Align(
-            alignment: Alignment.topLeft,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 1.5.h),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(3.h),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(
-                    sigmaX: 5.0,
-                    sigmaY: 5.0,
-                  ),
-                  child: Container(
-                    width: 40.w,
-                    height: 7.h,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.30),
-                    ),
-                    child: Text(
-                      "Software Developer",
-                      style: TextStyle(color: Colors.white, fontSize: 11.sp),
-                      textDirection: TextDirection.ltr,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
           Expanded(
             child: Align(
               alignment: Alignment.bottomLeft,
@@ -123,26 +95,7 @@ class UserCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         textDirection: TextDirection.rtl,
                         children: [
-                          Row(
-                            textDirection: TextDirection.ltr,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 2.w),
-                                  child: const Icon(
-                                    Icons.location_on_outlined,
-                                    color: Colors.white,
-                                  )),
-                              Text(
-                                "2 km away",
-                                style: TextStyle(
-                                    fontSize: 10.sp,
-                                    height: 0,
-                                    color: Colors.white),
-                              ),
-                            ],
-                          ),
+
                           Row(
                             textDirection: TextDirection.rtl,
                             crossAxisAlignment: CrossAxisAlignment.center,

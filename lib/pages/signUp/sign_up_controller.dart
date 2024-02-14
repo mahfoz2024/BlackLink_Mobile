@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:progress_state_button/progress_button.dart';
+
 
 class SignUpController extends GetxController {
   TextEditingController niceNameController = TextEditingController();
@@ -20,12 +22,12 @@ class SignUpController extends GetxController {
   Rx<TextEditingController> textEditingController = TextEditingController().obs;
   Rx<File?> image = Rx<File?>(null);
   final service = AuthWebServices();
-
+  final stateTextWithIcon = ButtonState.idle.obs;
   void setImage(CroppedFile imageFile) {
     image.value = File(imageFile.path);
   }
 
-  Future<void> signUp(BuildContext context) async {
+  Future<void> signUp() async {
     SignUpModel model = SignUpModel(
         niceName: niceNameController.text,
         email: emailController.text,
@@ -36,11 +38,7 @@ class SignUpController extends GetxController {
         mainPhoto: image.value!.path);
     final result = await service.signUp(model);
     if (result == 201) {
-      Get.defaultDialog(title: 'Info', middleText: 'SignUp successful!');
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => LogIn()),
-      );
+      Get.offAll(LogIn());
     }
   }
 
@@ -96,4 +94,5 @@ class SignUpController extends GetxController {
           DateFormat('yyyy/MM/dd').format(selectedDate!);
     }
   }
+
 }

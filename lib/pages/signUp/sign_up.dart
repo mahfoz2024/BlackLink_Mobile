@@ -158,7 +158,7 @@ class SignUp extends StatelessWidget {
                   child: InkWell(
                     onTap: () async {
                       if (_formKey.currentState!.validate()) {
-                        await controller.signUp(context);
+                        await controller.signUp();
                       }
                     },
                     child: Container(

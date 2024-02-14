@@ -6,7 +6,7 @@ import 'dart:convert';
 
 UserProfileModel userProfileModelFromJson(String str) => UserProfileModel.fromJson(json.decode(str));
 
-
+String userProfileModelToJson(UserProfileModel data) => json.encode(data.toJson());
 
 class UserProfileModel {
   UserProfileModel({
@@ -14,51 +14,52 @@ class UserProfileModel {
     this.nickName,
     this.bio,
     this.age,
-    this.mainPhoto,
+    this.tall,
     this.gender,
+    this.emotionalState,
+    this.goal,
+    this.kids,
+    this.mainPhoto,
     this.userPhotos,
-    this.interests,
   });
 
   String? id;
   String? nickName;
   String? bio;
-  String? mainPhoto;
   int? age;
+  int? tall;
   String? gender;
+  String? emotionalState;
+  String? goal;
+  String? kids;
+  String? mainPhoto;
   List<String>? userPhotos;
-  List<Interest>? interests;
 
   factory UserProfileModel.fromJson(Map<String, dynamic> json) => UserProfileModel(
     id: json["id"],
     nickName: json["nickName"],
     bio: json["bio"],
     age: json["age"],
-    mainPhoto: json["mainPhoto"],
+    tall: json["tall"],
     gender: json["gender"],
-    userPhotos: List<String>.from(json["userPhotos"].map((x) => x)),
-    interests: List<Interest>.from(json["interests"].map((x) => Interest.fromJson(x))),
-  );
-
-
-}
-
-class Interest {
-  Interest({
-    this.id,
-    this.interestName,
-  });
-
-  String? id;
-  String? interestName;
-
-  factory Interest.fromJson(Map<String, dynamic> json) => Interest(
-    id: json["id"],
-    interestName: json["interestName"],
+    emotionalState: json["emotionalState"],
+    goal: json["goal"],
+    kids: json["kids"],
+    mainPhoto: json["mainPhoto"],
+    userPhotos: json["userPhotos"] == null ? null : List<String>.from(json["userPhotos"].map((x) => x)),
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
-    "interestName": interestName,
+    "nickName": nickName,
+    "bio": bio,
+    "age": age,
+    "tall": tall,
+    "gender": gender,
+    "emotionalState": emotionalState,
+    "goal": goal,
+    "kids": kids,
+    "mainPhoto": mainPhoto,
+    "userPhotos": userPhotos == null ? null : List<dynamic>.from(userPhotos!.map((x) => x)),
   };
 }

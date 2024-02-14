@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -9,31 +8,31 @@ import '../../../widgets/handling_error_widget.dart';
 import 'user_profile_controller.dart';
 
 class UserProfile extends StatelessWidget {
-  UserProfile({super.key});
+  final String id;
 
+  UserProfile({super.key, required this.id});
+  final controller=Get.put(UserProfileController());
   final pageController = PageController(viewportFraction: 1, initialPage: 0);
 
   @override
   Widget build(BuildContext context) {
+    controller.id=id;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: const Color(0xff1a1a35),
         body: Center(
-          child: SingleChildScrollView(
-            child: GetX<UserProfileController>(
-              init: UserProfileController(),
-              initState: (_) async {
-                await _.controller?.getUser();
-              },
-              builder: (logic) {
-                if (logic.loading.isTrue) {
+          child: SingleChildScrollView
+            (
+              child:
+              Obx((){
+                if (controller.loading.isTrue) {
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
                 } else {
-                  if (logic.errorType.value != ResponseStatus.other) {
+                  if (controller.errorType.value != ResponseStatus.other) {
                     return HandlingErrorWidget(
-                        responseStatus: logic.errorType.value);
+                        responseStatus: controller.errorType.value);
                   } else {
                     return Column(
                       textDirection: TextDirection.rtl,
@@ -52,18 +51,22 @@ class UserProfile extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(2.h)),
                                   child: PageView.builder(
                                       controller: pageController,
-                                      itemCount:logic.user.value.userPhotos!.length,
+                                      itemCount: controller
+                                          .user.value.userPhotos!.length,
                                       itemBuilder: (_, index) {
                                         return Hero(
-                                          tag:  baseURL+logic.user.value.userPhotos![index],
+                                          tag: baseURL +
+                                              controller
+                                                  .user.value.userPhotos![index],
                                           child: Container(
                                             decoration: BoxDecoration(
                                                 image: DecorationImage(
-                                                    image: NetworkImage(
-                                                        baseURL+logic.user.value.userPhotos![index]),
+                                                    image: NetworkImage(baseURL +
+                                                        controller.user.value
+                                                            .userPhotos![index]),
                                                     fit: BoxFit.cover),
                                                 borderRadius:
-                                                    BorderRadius.circular(2.h)),
+                                                BorderRadius.circular(2.h)),
                                           ),
                                         );
                                       }),
@@ -73,7 +76,7 @@ class UserProfile extends StatelessWidget {
                                     alignment: Alignment.topLeft,
                                     child: Padding(
                                       padding:
-                                          EdgeInsets.only(left: 2.w, top: 1.h),
+                                      EdgeInsets.only(left: 2.w, top: 1.h),
                                       child: IconButton(
                                           onPressed: () {
                                             Navigator.of(context).pop();
@@ -91,7 +94,7 @@ class UserProfile extends StatelessWidget {
                                     alignment: Alignment.topRight,
                                     child: Padding(
                                       padding:
-                                          EdgeInsets.only(right: 1.w, top: 1.h),
+                                      EdgeInsets.only(right: 1.w, top: 1.h),
                                       child: IconButton(
                                           onPressed: () {},
                                           icon: const Icon(
@@ -109,7 +112,8 @@ class UserProfile extends StatelessWidget {
                                       padding: EdgeInsets.only(bottom: 2.h),
                                       child: SmoothPageIndicator(
                                           controller: pageController,
-                                          count: logic.user.value.userPhotos!.length,
+                                          count: controller
+                                              .user.value.userPhotos!.length,
                                           effect: const WormEffect(
                                               dotColor: Colors.grey,
                                               activeDotColor: Colors.white),
@@ -128,7 +132,7 @@ class UserProfile extends StatelessWidget {
                             textDirection: TextDirection.rtl,
                             children: [
                               Text(
-                               logic.user.value.nickName!,
+                                controller.user.value.nickName!,
                                 style: TextStyle(
                                     fontSize: 17.sp,
                                     fontWeight: FontWeight.bold,
@@ -143,7 +147,7 @@ class UserProfile extends StatelessWidget {
                                     color: Colors.white),
                               ),
                               Text(
-                                logic.user.value.age.toString() ,
+                                controller.user.value.age.toString(),
                                 style: TextStyle(
                                     fontSize: 17.sp,
                                     fontWeight: FontWeight.bold,
@@ -176,9 +180,9 @@ class UserProfile extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 7.w),
                           child: Text(
-                            logic.user.value.bio!,
+                            controller.user.value.bio!,
                             style:
-                                TextStyle(fontSize: 13.sp, color: Colors.white),
+                            TextStyle(fontSize: 13.sp, color: Colors.white),
                             textDirection: TextDirection.rtl,
                           ),
                         ),
@@ -195,20 +199,20 @@ class UserProfile extends StatelessWidget {
                             textDirection: TextDirection.rtl,
                           ),
                         ),
-                        Padding(
+                        /*Padding(
                           padding: EdgeInsets.symmetric(horizontal: 7.w),
                           child: Wrap(
                               textDirection: TextDirection.rtl,
                               spacing: 3.5.w,
                               children: List.generate(
-                                logic.user.value.interests!.length,
+                                controller.user.value.interests!.length,
                                 (index) => Chip(
                                   backgroundColor: Color(
                                           (Random().nextDouble() * 0xFFFFFF)
                                               .toInt())
                                       .withOpacity(1),
                                   label: Text(
-                                    logic.user.value.interests![index].interestName!,
+                                    controller.user.value.interests![index].interestName!,
                                     style: TextStyle(
                                       fontSize: 13.sp,
                                       color: Color(
@@ -220,13 +224,12 @@ class UserProfile extends StatelessWidget {
                                   ),
                                 ),
                               )),
-                        )
+                        )*/
                       ],
                     );
                   }
                 }
-              },
-            ),
+              })
           ),
         ),
       ),
